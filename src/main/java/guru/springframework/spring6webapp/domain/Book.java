@@ -1,4 +1,4 @@
-package domain;
+package guru.springframework.spring6webapp.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,12 +8,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 
+import java.util.Set;
+
 @Entity
 public class Book {
 
     // ID JPA
     // AUTO GENERATED
+
+    // JPA annotation for specifying the primary key
     @Id
+    // Specifies that the primary key value will be generated automatically
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     // JPA Entities
@@ -21,17 +26,19 @@ public class Book {
     private String title;
     private String isbn;
 
-    // Getters and setters
 
+    // Specifies a many-to-many relationship with the Author entity
     @ManyToMany
-    // creating foreign key columns and joining tables
+
+    // Specifies the join table name and the foreign key columns
     @JoinTable(name = "author_book",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
 
-    private set<Author> authors;
+    private Set<Author> authors;
 
     // ID Getters and setters
+    // Getter and setter methods for the id field
     public Long getId() {
         return id;
     }
@@ -41,6 +48,7 @@ public class Book {
     }
 
     // Title Getters and setters
+    // Getter and setter methods for the title field
     public String getTitle() {
         return title;
     }
@@ -50,6 +58,7 @@ public class Book {
     }
 
     // ISBN Getters and setters
+    // Getter and setter methods for the isbn field
     public String getIsbn() {
         return isbn;
     }
@@ -58,6 +67,7 @@ public class Book {
         this.isbn = isbn;
     }
 
+    // toString() method to represent the Book object as a String
     @Override
     public String toString() {
         return "Book{" +
@@ -68,6 +78,7 @@ public class Book {
                 '}';
     }
 
+    // equals() method to compare two Book objects for equality
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,6 +87,7 @@ public class Book {
         return getId() != null ? getId().equals(book.getId()) : book.getId() == null;
     }
 
+    // hashCode() method to generate a hash code for the Book object
     @Override
     public int hashCode() {
         return getId() != null ? getId().hashCode() : 0;
